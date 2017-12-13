@@ -21,7 +21,9 @@ $pass=$_POST['password'];
 
 $resp=mysqli_query($conn,"select puesto,pass from empleado where correo='$usuario'");
 $resultado=$resp->fetch_array(MYSQLI_NUM);
-if($pass==$resultado[1]){
+$checa=mysql_query($conn,"call password('$pass','$usuario')");
+//if($pass==$resultado[1]){
+if($checa==1){
     $_SESSION['usuario']=$usuario;
 	$_SESSION['puesto']=$resultado[0];
     header("location:index.php");
